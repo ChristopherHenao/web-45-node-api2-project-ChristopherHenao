@@ -3,8 +3,14 @@ const express = require('express')
 const Posts = require('./posts-model')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.json('the get posts is working')
+router.get('/', async (req, res) => {
+    const posts = await Posts.find()
+    try {
+        res.json(posts)
+    }
+    catch (error) {
+        res.status(500).json({ message: "The posts information could not be retrieved" })
+    }
 })
 
 
